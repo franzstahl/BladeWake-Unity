@@ -2,22 +2,48 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    private Rigidbody2D rb;
+    [SerializeField] private float speed = 3f;
+    private Rigidbody2D playerRb;
+    private Vector2 moveInput;
+    private Vector2 lastMoveInput = Vector2.down;
+    private Animator playerAnimator;
+
 
 
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        playerRb = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
+    }
 
+    void Update()
+    {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+        moveInput = new Vector2(moveX, moveY).normalized;
+
+        if (moveInput != Vector2.zero)
+        {
+            lastMoveInput = moveInput;
+        }
+
+        playerAnimator.SetFloat("Horizontal", moveX);
+        playerAnimator.SetFloat("Vertical", moveY);
+        playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
+
+        
+        playerAnimator.SetFloat("LastHorizontal", lastMoveInput.x);
+        playerAnimator.SetFloat("LastVertical", lastMoveInput.y);
+        
+        
+
+
+        
     }
 
     void FixedUpdate()
     {
-        float  moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
-
-        rb.linearVelocity = new Vector2(moveX, moveY) * speed;
+        playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
     }
 }
