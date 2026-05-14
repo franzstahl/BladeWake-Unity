@@ -8,9 +8,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lastMoveInput = Vector2.down;
     private Animator playerAnimator;
 
-
-
-
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
@@ -35,10 +32,6 @@ public class PlayerMovement : MonoBehaviour
         
         playerAnimator.SetFloat("LastHorizontal", lastMoveInput.x);
         playerAnimator.SetFloat("LastVertical", lastMoveInput.y);
-        
-        
-
-
         
     }
 
