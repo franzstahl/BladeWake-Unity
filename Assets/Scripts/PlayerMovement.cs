@@ -7,15 +7,24 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lastMoveInput = Vector2.down;
     private Animator playerAnimator;
+    private PlayerAttack playerAttack;
 
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+        playerAttack = GetComponent<PlayerAttack>();
     }
 
     void Update()
     {
+        if (playerAttack.isAttacking)
+        {
+            moveInput = Vector2.zero;
+            playerAnimator.SetFloat("Speed", 0f);
+            return;
+        }
+
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY).normalized;

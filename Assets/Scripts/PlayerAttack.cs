@@ -11,6 +11,8 @@ public class PlayerAttack : MonoBehaviour
     private float lastAttackTime = 0f;
     private AudioSource audioSource;
 
+    public bool isAttacking = false;
+
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -33,10 +35,15 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
+        isAttacking = true;
         lastAttackTime = Time.time;
         playerAnimator.SetTrigger("Attack");
         audioSource.PlayOneShot(attackSound);
+        Invoke("StopAttacking", attackCooldown);
     }
 
-
+    private void StopAttacking()
+    {
+        isAttacking = false;
+    }
 }
