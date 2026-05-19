@@ -9,11 +9,13 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator;
     private PlayerAttack playerAttack;
 
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerAttack = GetComponent<PlayerAttack>();
+        
     }
 
     void Update()
@@ -28,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY).normalized;
+
+
 
         if (moveInput != Vector2.zero)
         {
@@ -48,4 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
     }
+
+                     
+
 }
