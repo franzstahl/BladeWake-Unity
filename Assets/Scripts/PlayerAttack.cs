@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private float attackCooldown = 0.4f;
+    [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private AudioClip attackSound;
