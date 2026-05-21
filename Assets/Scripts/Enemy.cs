@@ -1,15 +1,18 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed = 3.5f;
     [SerializeField] private int MaxHealth = 3;
+    [SerializeField] private float distance = 1f;
 
     private int _currentHealth;
     private Rigidbody2D _rb;
     private Animator _animator;
     private Transform _playerTransform;
    
+
     void Start()
     {
         _currentHealth = MaxHealth;
@@ -29,10 +32,13 @@ public class Enemy : MonoBehaviour
     {
         Vector2 direction = ((Vector2)_playerTransform.position - _rb.position).normalized;
 
-        _rb.MovePosition(_rb.position + direction * speed * Time.fixedDeltaTime);
+        if (Vector2.Distance(_rb.position, _playerTransform.position) >= distance)
+        {
+            _rb.MovePosition(_rb.position + direction * speed * Time.fixedDeltaTime);
+            _animator.SetFloat("MoveX", direction.x);
+            _animator.SetFloat("MoveY", direction.y);
 
-        _animator.SetFloat("MoveX", direction.x);
-        _animator.SetFloat("MoveY", direction.y);
+        }
 
     }
 }
