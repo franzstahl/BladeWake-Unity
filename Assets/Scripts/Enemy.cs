@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
 
     private void MoveTowardsPlayer()
     {
+        //Vector2 randomOffset = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
         Vector2 direction = ((Vector2)_playerTransform.position - _rb.position).normalized;
 
         if (Vector2.Distance(_rb.position, _playerTransform.position) >= distance)
@@ -39,6 +40,24 @@ public class Enemy : MonoBehaviour
             _animator.SetFloat("MoveY", direction.y);
 
         }
+        else
+        {
+            _rb.linearVelocity = Vector2.zero;
+        }
+    }
 
+    private void TakeDamage(int damageAmount)
+    {
+        _currentHealth -= damageAmount;
+
+        if (_currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
