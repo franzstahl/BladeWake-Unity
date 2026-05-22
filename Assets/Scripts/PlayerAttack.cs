@@ -13,13 +13,13 @@ public class PlayerAttack : MonoBehaviour
 
     public bool isAttacking = false;
 
-    void Start()
+    private void Start()
     {
         playerAnimator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
+    private void Update()
     {
          if (Input.GetMouseButtonDown(0) && CanAttack())
         {
@@ -39,6 +39,18 @@ public class PlayerAttack : MonoBehaviour
         lastAttackTime = Time.time;
         playerAnimator.SetTrigger("Attack");
         audioSource.PlayOneShot(attackSound);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
+
+        foreach (Collider2D hit in hits)
+        {
+            Health health =hit.GetComponent<Health>();
+
+            if (health != null)
+            {
+                health.TakeDamage(1);
+            }
+        }
+
         Invoke("StopAttacking", attackCooldown);
     }
 

@@ -221,8 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bdb6a5298f34c46a799727a35805e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  maxHealth: 2
+  currentHealth: 0
   speed: 3.5
-  MaxHealth: 3
   distance: 1
 --- !u!50 &8001679451983986264
 Rigidbody2D:

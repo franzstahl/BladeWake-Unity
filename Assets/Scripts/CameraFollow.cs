@@ -5,7 +5,7 @@ public class CameraFollow : MonoBehaviour
    [SerializeField] private Transform playerTransform;
 
 
-    void LateUpdate()
+   private  void LateUpdate()
     {
         transform.position = new Vector3(
             playerTransform.position.x,

@@ -1,25 +1,23 @@
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Health
 {
     [SerializeField] private float speed = 3.5f;
-    [SerializeField] private int MaxHealth = 3;
     [SerializeField] private float distance = 1f;
+    //[SerializeField] private LayerMask enemyLayer;
 
-    private int _currentHealth;
     private Rigidbody2D _rb;
     private Animator _animator;
     private Transform _playerTransform;
    
 
-    void Start()
+    protected override void Start()
     {
-        _currentHealth = MaxHealth;
+        base.Start();
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
 
     }
 
@@ -30,7 +28,6 @@ public class Enemy : MonoBehaviour
 
     private void MoveTowardsPlayer()
     {
-        //Vector2 randomOffset = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
         Vector2 direction = ((Vector2)_playerTransform.position - _rb.position).normalized;
 
         if (Vector2.Distance(_rb.position, _playerTransform.position) >= distance)
@@ -46,18 +43,4 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damageAmount)
-    {
-        _currentHealth -= damageAmount;
-
-        if (_currentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
 }

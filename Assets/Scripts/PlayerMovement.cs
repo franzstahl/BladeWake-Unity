@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerAttack playerAttack;
 
 
-    void Start()
+    private void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    void Update()
+    private void Update()
     {
         if (playerAttack.isAttacking)
         {
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
     }
