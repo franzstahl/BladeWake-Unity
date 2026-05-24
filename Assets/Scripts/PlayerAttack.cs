@@ -43,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            Health health =hit.GetComponent<Health>();
+            Health health = hit.GetComponent<Health>();
 
             if (health != null)
             {

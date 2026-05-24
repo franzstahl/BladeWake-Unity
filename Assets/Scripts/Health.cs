@@ -24,23 +24,36 @@ public class Health : MonoBehaviour
     {
         currentHealth -= damageAmount;
         _audioSource.PlayOneShot(hurtSound);
-
+      
         if (currentHealth <= 0)
         {
             Die();
         }
+            StartCoroutine(FlashRed());
 
-        StartCoroutine(FlashRed());
+      
     }
 
    protected virtual void Die()
     {
-        StartCoroutine(DieWithDelay());
+        StopAllCoroutines();
+        _spriteRenderer.color = _originalColor;
+        StartCoroutine(FadeAndDie());
     }
 
-    private IEnumerator DieWithDelay()
+    private IEnumerator FadeAndDie()
     {
-        yield return new WaitForSeconds(0.25f);
+        float duration = 0.8f;
+        float elapsed = 0f;
+        Color color = _spriteRenderer.color;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / duration);
+            _spriteRenderer.color = new Color(color.r, color.g, color.b, alpha);
+            yield return null;
+        }
         Destroy(gameObject);
     }
 
@@ -51,6 +64,8 @@ public class Health : MonoBehaviour
         _spriteRenderer.color = _originalColor;
 
     }
+
+   
 
 }
 
