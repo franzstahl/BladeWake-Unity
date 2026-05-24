@@ -19,7 +19,7 @@ public class Enemy : Health
     private Vector2 _currentDirection;
     private Vector2 _lastDirection;
     [SerializeField] private AudioClip _attackSound;
-    private AudioSource _audioSource;
+    
    
 
     protected override void Start()
@@ -85,10 +85,6 @@ public class Enemy : Health
 
     private void TryAttack()
     {
-        //_animator.SetBool("isAttacking", true);
-        //_animator.SetFloat("MoveX", _lastDirection.x);
-        //_animator.SetFloat("MoveY", _lastDirection.y);
-
         if (Time.time >= lastAttackTime + attackCooldown)
         {
             lastAttackTime = Time.time;

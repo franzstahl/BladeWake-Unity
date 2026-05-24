@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     private Color _originalColor;
-    private AudioSource _audioSource;
+    protected AudioSource _audioSource;
     
    protected virtual void Start()
     {
@@ -30,8 +30,7 @@ public class Health : MonoBehaviour
             Die();
         }
             StartCoroutine(FlashRed());
-
-      
+        CameraFollow.Instance.TriggerShake();
     }
 
    protected virtual void Die()
