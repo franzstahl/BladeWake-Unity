@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Enemy : Health
 {
-    [SerializeField] private float speed = 3.5f;
-    [SerializeField] private float distance = 2f;
+    [SerializeField] private float speed = 4.0f;
+    [SerializeField] private float distance = 2.0f;
     [SerializeField] private float detectionRadius = 3.0f;
     [SerializeField] private float separationWeight = 10.0f;
     [SerializeField] private float smoothing = 0.2f;

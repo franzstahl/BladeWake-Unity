@@ -4,8 +4,8 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private float duration = 0.2f;
-    [SerializeField] private float intensity = 0.1f;
+    [SerializeField] private float duration = 0.25f;
+    [SerializeField] private float intensity = 0.27f;
 
     private Vector3 offSet;
 
