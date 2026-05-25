@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : Health
@@ -8,6 +9,8 @@ public class Enemy : Health
     [SerializeField] private float separationWeight = 1.5f;
     [SerializeField] private float smoothing = 0.1f;
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float delay = 0.4f;
 
     [SerializeField] private float attackRange = 2.5f;
     [SerializeField] private float attackCooldown = 1.5f;
@@ -19,8 +22,8 @@ public class Enemy : Health
     private Vector2 _currentDirection;
     private Vector2 _lastDirection;
     [SerializeField] private AudioClip _attackSound;
-    
-   
+
+
 
     protected override void Start()
     {
@@ -30,7 +33,7 @@ public class Enemy : Health
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         _audioSource = GetComponent<AudioSource>();
 
-    } 
+    }
 
     private void FixedUpdate()
     {
@@ -75,7 +78,7 @@ public class Enemy : Health
             {
                 _lastDirection = _currentDirection;
             }
-                
+
             _rb.MovePosition(_rb.position + _currentDirection * speed * Time.fixedDeltaTime);
 
             _animator.SetFloat("MoveX", _currentDirection.x);
@@ -102,6 +105,34 @@ public class Enemy : Health
 
             _animator.SetTrigger("Attack");
             _audioSource.PlayOneShot(_attackSound);
+
+            StartCoroutine(DamageDelay());
+
         }
     }
+
+    private IEnumerator DamageDelay()
+    {
+        yield return new WaitForSeconds(delay);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRange, playerLayer);
+
+        foreach (Collider2D hit in hits)
+        {
+            Health health = hit.GetComponent<Health>();
+            if (health != null)
+            {
+                health.TakeDamage(1);
+            }
+        }
+
+    }
+    
+
+
+
+
+
+
 }
+    
+
