@@ -5,8 +5,8 @@ public class Enemy : Health
     [SerializeField] private float speed = 4.0f;
     [SerializeField] private float distance = 2.0f;
     [SerializeField] private float detectionRadius = 3.0f;
-    [SerializeField] private float separationWeight = 10.0f;
-    [SerializeField] private float smoothing = 0.2f;
+    [SerializeField] private float separationWeight = 1.5f;
+    [SerializeField] private float smoothing = 0.1f;
     [SerializeField] private LayerMask enemyLayer;
 
     [SerializeField] private float attackRange = 2.5f;
@@ -47,12 +47,23 @@ public class Enemy : Health
             if (neighbour.gameObject != gameObject)
             {
                 Vector2 pushDirection = (Vector2)transform.position - (Vector2)neighbour.transform.position;
-                separationForce += pushDirection;
+                float dist = pushDirection.magnitude;
+
+                if (dist > 0)
+                {
+                    separationForce += pushDirection.normalized / dist;
+                }
 
             }
         }
 
+        if (neighbours.Length > 1)
+        {
+            separationForce /= (neighbours.Length - 1);
+        }
+
         float distanceToPlayer = Vector2.Distance(_rb.position, _playerTransform.position);
+
         if (distanceToPlayer >= distance)
         {
             Vector2 moveDirection = ((Vector2)_playerTransform.position - _rb.position).normalized;
