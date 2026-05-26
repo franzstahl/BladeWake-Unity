@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(int damageAmount) // Handle taking damage
     {
         currentHealth -= damageAmount;
         _audioSource.PlayOneShot(hurtSound);
@@ -33,14 +33,14 @@ public class Health : MonoBehaviour
         CameraFollow.Instance.TriggerShake();
     }
 
-   protected virtual void Die()
+   protected virtual void Die() // Handle death, can be overridden by player and enemy for different behaviour
     {
         StopAllCoroutines();
         _spriteRenderer.color = _originalColor;
         StartCoroutine(FadeAndDie());
     }
 
-    private IEnumerator FadeAndDie()
+    private IEnumerator FadeAndDie() // Fade out the sprite before destroying the object
     {
         float duration = 0.8f;
         float elapsed = 0f;
@@ -56,7 +56,7 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private IEnumerator FlashRed()
+    private IEnumerator FlashRed() // Flash red briefly when taking damage
     {
         _spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.25f);

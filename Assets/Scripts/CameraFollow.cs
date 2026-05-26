@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        Instance = this; // Singleton to allow other scripts trigger the shake effect
     }
 
     public void TriggerShake()
@@ -21,7 +21,7 @@ public class CameraFollow : MonoBehaviour
         StartCoroutine(CoroutineShake());
     }
 
-   private  void LateUpdate()
+   private  void LateUpdate() // Ensure the camera follows after the player has moved
     {
         transform.position = new Vector3(
             playerTransform.position.x,
@@ -30,7 +30,7 @@ public class CameraFollow : MonoBehaviour
             ) + offSet;
     }
 
-    private IEnumerator CoroutineShake()
+    private IEnumerator CoroutineShake() // Handle the shake effect by applying a random offset
     {
         float elapsed = 0f;
 

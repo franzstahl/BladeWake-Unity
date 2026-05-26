@@ -11,17 +11,18 @@ public class Enemy : Health
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float delay = 0.4f;
-
     [SerializeField] private float attackRange = 2.5f;
     [SerializeField] private float attackCooldown = 1.5f;
-    private float lastAttackTime = 0f;
+    [SerializeField] private AudioClip _attackSound;
+    [SerializeField] private float damageRange = 1.0f;
 
+    private float lastAttackTime = 0f;
     private Rigidbody2D _rb;
     private Animator _animator;
     private Transform _playerTransform;
     private Vector2 _currentDirection;
     private Vector2 _lastDirection;
-    [SerializeField] private AudioClip _attackSound;
+    
 
 
 
@@ -35,13 +36,13 @@ public class Enemy : Health
 
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() 
     {
-        Collider2D[] neighbours = Physics2D.OverlapCircleAll(_rb.position, detectionRadius, enemyLayer);
+        Collider2D[] neighbours = Physics2D.OverlapCircleAll(_rb.position, detectionRadius, enemyLayer); // Get nearby enemies for separation
         MoveTowardsPlayer(neighbours);
     }
 
-    private void MoveTowardsPlayer(Collider2D[] neighbours)
+    private void MoveTowardsPlayer(Collider2D[] neighbours) // Handle movement towards player and steering flocking behiavour 
     {
         Vector2 separationForce = Vector2.zero;
 
@@ -54,18 +55,18 @@ public class Enemy : Health
 
                 if (dist > 0)
                 {
-                    separationForce += pushDirection.normalized / dist;
+                    separationForce += pushDirection.normalized / dist; // Stronger push when closer, weaker when farther
                 }
 
             }
         }
 
-        if (neighbours.Length > 1)
+        if (neighbours.Length > 1) 
         {
-            separationForce /= (neighbours.Length - 1);
+            separationForce /= (neighbours.Length - 1); 
         }
 
-        float distanceToPlayer = Vector2.Distance(_rb.position, _playerTransform.position);
+        float distanceToPlayer = Vector2.Distance(_rb.position, _playerTransform.position); 
 
         if (distanceToPlayer >= distance)
         {
@@ -111,10 +112,10 @@ public class Enemy : Health
         }
     }
 
-    private IEnumerator DamageDelay()
+    private IEnumerator DamageDelay() // Delay the damage application to sync with the attack animation
     {
         yield return new WaitForSeconds(delay);
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRange, playerLayer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, damageRange, playerLayer);
 
         foreach (Collider2D hit in hits)
         {

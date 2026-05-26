@@ -20,24 +20,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (playerAttack.isAttacking)
+        if (playerAttack.isAttacking) // The player cannot move while attacking
         {
             moveInput = Vector2.zero;
             playerAnimator.SetFloat("Speed", 0f);
             return;
         }
 
+        // Movement input
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY).normalized;
 
 
 
-        if (moveInput != Vector2.zero)
+        if (moveInput != Vector2.zero) // Last movement direction for idle animations
         {
             lastMoveInput = moveInput;
         }
 
+        // Movement animations
         playerAnimator.SetFloat("Horizontal", moveX);
         playerAnimator.SetFloat("Vertical", moveY);
         playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
@@ -48,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() // Handle physics movement 
     {
         playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
     }

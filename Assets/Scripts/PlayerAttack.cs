@@ -21,25 +21,25 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-         if (Input.GetMouseButtonDown(0) && CanAttack())
+         if (Input.GetMouseButtonDown(0) && CanAttack()) // Uses left mouse button to attack
         {
             Attack();
 
         }
     }
 
-    private bool CanAttack()
+    private bool CanAttack() // Check if player can attack based on cooldown
     {
         return Time.time >= lastAttackTime + attackCooldown;
     }
 
-    private void Attack()
+    private void Attack() // Handle all the attack logic
     {
         isAttacking = true;
         lastAttackTime = Time.time;
         playerAnimator.SetTrigger("Attack");
         audioSource.PlayOneShot(attackSound);
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer); // Detect enemies in range
 
         foreach (Collider2D hit in hits)
         {
@@ -54,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
         Invoke("StopAttacking", attackCooldown);
     }
 
-    private void StopAttacking()
+    private void StopAttacking() // Reset attacking state after cooldown
     {
         isAttacking = false;
     }
