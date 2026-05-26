@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int maxHealth;
-    [SerializeField] private int currentHealth;
+    [SerializeField] protected int maxHealth;
+    [SerializeField] protected int currentHealth;
     [SerializeField] private AudioClip hurtSound;
     
 
@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public void TakeDamage(int damageAmount) // Handle taking damage
+    public virtual void TakeDamage(int damageAmount) // Handle taking damage
     {
         currentHealth -= damageAmount;
         _audioSource.PlayOneShot(hurtSound);
