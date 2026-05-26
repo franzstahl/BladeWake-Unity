@@ -22,10 +22,7 @@ public class Enemy : Health
     private Transform _playerTransform;
     private Vector2 _currentDirection;
     private Vector2 _lastDirection;
-    
-
-
-
+   
     protected override void Start()
     {
         base.Start();
