@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
     [SerializeField] private AudioClip hurtSound;
     
 
-    private SpriteRenderer _spriteRenderer;
+    protected SpriteRenderer _spriteRenderer;
     private Color _originalColor;
     protected AudioSource _audioSource;
     
@@ -37,20 +37,26 @@ public class Health : MonoBehaviour
     {
         StopAllCoroutines();
         _spriteRenderer.color = _originalColor;
-        StartCoroutine(FadeAndDie());
+        StartCoroutine(EnemyFadeAndDie());
     }
 
-    private IEnumerator FadeAndDie() // Fade out the sprite before destroying the object
+    private IEnumerator EnemyFadeAndDie() // Fade out the sprite before destroying the object
     {
         float duration = 0.8f;
         float elapsed = 0f;
         Color color = _spriteRenderer.color;
+        SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float alpha = Mathf.Lerp(1f, 0f, elapsed / duration);
-            _spriteRenderer.color = new Color(color.r, color.g, color.b, alpha);
+
+            foreach (SpriteRenderer sr in sprites)
+            {
+                sr.color = new Color(color.r, color.g, color.b, alpha);
+            }
+           
             yield return null;
         }
         Destroy(gameObject);
