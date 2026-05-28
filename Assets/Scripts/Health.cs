@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public virtual void TakeDamage(int damageAmount) // Handle taking damage
+    public virtual void TakeDamage(int damageAmount) // Handle taking damage 
     {
         currentHealth -= damageAmount;
         _audioSource.PlayOneShot(hurtSound);
@@ -40,7 +40,7 @@ public class Health : MonoBehaviour
         StartCoroutine(EnemyFadeAndDie());
     }
 
-    private IEnumerator EnemyFadeAndDie() // Fade out the sprite before destroying the object
+    private IEnumerator EnemyFadeAndDie() // Fade out the sprite and its children before destroying the object
     {
         float duration = 0.8f;
         float elapsed = 0f;

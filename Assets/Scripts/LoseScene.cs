@@ -3,17 +3,13 @@ using UnityEngine;
 public class LoseScene : MonoBehaviour
 {
     [SerializeField] private AudioClip loseSound;
-    private AudioSource audioSource;
+    private AudioSource _audioSource;
 
-    void Start()
+    private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(loseSound);
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.PlayOneShot(loseSound);
     }
 
-    
-    void Update()
-    {
-        
-    }
 }
+    

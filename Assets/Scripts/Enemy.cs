@@ -16,7 +16,7 @@ public class Enemy : Health
     [SerializeField] private AudioClip _attackSound;
     [SerializeField] private float damageRange = 1.0f;
 
-    private float lastAttackTime = 0f;
+    private float _lastAttackTime = 0f;
     private Rigidbody2D _rb;
     private Animator _animator;
     private Transform _playerTransform;
@@ -95,11 +95,11 @@ public class Enemy : Health
 
     }
 
-    private void TryAttack()
+    private void TryAttack()  
     {
-        if (Time.time >= lastAttackTime + attackCooldown)
+        if (Time.time >= _lastAttackTime + attackCooldown)
         {
-            lastAttackTime = Time.time;
+            _lastAttackTime = Time.time;
 
             _animator.SetTrigger("Attack");
             _audioSource.PlayOneShot(_attackSound);
@@ -112,7 +112,7 @@ public class Enemy : Health
     private IEnumerator DamageDelay() // Delay the damage application to sync with the attack animation
     {
         yield return new WaitForSeconds(delay);
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, damageRange, playerLayer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, damageRange, playerLayer); // Detect player in damage range
 
         foreach (Collider2D hit in hits)
         {
@@ -122,9 +122,13 @@ public class Enemy : Health
                 health.TakeDamage(1);
             }
         }
-
     }
-    
+
+    protected override void Die()
+    {
+        base.Die();
+        WaveManager.instance.EnemyDied(); // Notify the wave manager that an enemy has died, to manage wave progression
+    }
 
 
 

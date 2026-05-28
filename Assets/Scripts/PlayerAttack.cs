@@ -7,16 +7,16 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private AudioClip attackSound;
 
-    private Animator playerAnimator;
-    private float lastAttackTime = 0f;
-    private AudioSource audioSource;
+    private Animator _playerAnimator;
+    private float _lastAttackTime = 0f;
+    private AudioSource _audioSource;
 
     public bool isAttacking = false;
 
     private void Start()
     {
-        playerAnimator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        _playerAnimator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -30,15 +30,15 @@ public class PlayerAttack : MonoBehaviour
 
     private bool CanAttack() // Check if player can attack based on cooldown
     {
-        return Time.time >= lastAttackTime + attackCooldown;
+        return Time.time >= _lastAttackTime + attackCooldown;
     }
 
     private void Attack() // Handle all the attack logic
     {
         isAttacking = true;
-        lastAttackTime = Time.time;
-        playerAnimator.SetTrigger("Attack");
-        audioSource.PlayOneShot(attackSound);
+        _lastAttackTime = Time.time;
+        _playerAnimator.SetTrigger("Attack");
+        _audioSource.PlayOneShot(attackSound);
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer); // Detect enemies in range
 
         foreach (Collider2D hit in hits)

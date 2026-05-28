@@ -3,56 +3,59 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 3f;
-    private Rigidbody2D playerRb;
-    private Vector2 moveInput;
-    private Vector2 lastMoveInput = Vector2.down;
-    private Animator playerAnimator;
-    private PlayerAttack playerAttack;
+    private Rigidbody2D _playerRb;
+    private Vector2 _moveInput;
+    private Vector2 _lastMoveInput = Vector2.down;
+    private Animator _playerAnimator;
+    private PlayerAttack _playerAttack;
 
+    private PlayerHealth _playerHealth;
 
     private void Start()
     {
-        playerRb = GetComponent<Rigidbody2D>();
-        playerAnimator = GetComponent<Animator>();
-        playerAttack = GetComponent<PlayerAttack>();
-        
+        _playerRb = GetComponent<Rigidbody2D>();
+        _playerAnimator = GetComponent<Animator>();
+        _playerAttack = GetComponent<PlayerAttack>();
+        _playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update()
     {
-        if (playerAttack.isAttacking) // The player cannot move while attacking
+        if (_playerHealth.isDying) return; // The player cannot move while dying
+
+        if (_playerAttack.isAttacking) // The player cannot move while attacking
         {
-            moveInput = Vector2.zero;
-            playerAnimator.SetFloat("Speed", 0f);
+            _moveInput = Vector2.zero;
+            _playerAnimator.SetFloat("Speed", 0f);
             return;
         }
 
         // Movement input
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
-        moveInput = new Vector2(moveX, moveY).normalized;
+        _moveInput = new Vector2(moveX, moveY).normalized;
 
 
 
-        if (moveInput != Vector2.zero) // Last movement direction for idle animations
+        if (_moveInput != Vector2.zero) // Last movement direction for idle animations
         {
-            lastMoveInput = moveInput;
+            _lastMoveInput = _moveInput;
         }
 
         // Movement animations
-        playerAnimator.SetFloat("Horizontal", moveX);
-        playerAnimator.SetFloat("Vertical", moveY);
-        playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
+        _playerAnimator.SetFloat("Horizontal", moveX);
+        _playerAnimator.SetFloat("Vertical", moveY);
+        _playerAnimator.SetFloat("Speed", _moveInput.sqrMagnitude);
 
         
-        playerAnimator.SetFloat("LastHorizontal", lastMoveInput.x);
-        playerAnimator.SetFloat("LastVertical", lastMoveInput.y);
+        _playerAnimator.SetFloat("LastHorizontal", _lastMoveInput.x);
+        _playerAnimator.SetFloat("LastVertical", _lastMoveInput.y);
         
     }
 
     private void FixedUpdate() // Handle physics movement 
     {
-        playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
+        _playerRb.MovePosition(_playerRb.position + _moveInput * speed * Time.fixedDeltaTime);
     }
 
                      

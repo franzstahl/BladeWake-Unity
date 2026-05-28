@@ -5,22 +5,27 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : Health
 {
     [SerializeField] private HealthUI healthUI;
+
+    public bool isDying;
     void Start()
     {
         base.Start();
     }
 
-    public override void TakeDamage(int damageAmount)
+    public override void TakeDamage(int damageAmount) // Update health and health UI when taking damage
     {
+        if (isDying) return; // Prevent taking damage if already dying
         base.TakeDamage(damageAmount);
-        healthUI.DisplayHealth(maxHealth, currentHealth);
+        healthUI.DisplayHealth(maxHealth, currentHealth); 
     }
     protected override void Die()
     {
+        isDying = true;
+        GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero; // Stop player movement immediately
         StartCoroutine(PlayerFadeAndDie());
     }
 
-    private IEnumerator PlayerFadeAndDie()
+    private IEnumerator PlayerFadeAndDie() // Fade out the player sprite and its children before loading the lose scene
     {
         float duration = 1.5f;
         float elapsed = 0f;
