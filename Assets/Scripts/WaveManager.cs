@@ -27,6 +27,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private TMP_Text waveText;
 
     [SerializeField] private WaveData[] waves;
+
     
    private void Start()
     {

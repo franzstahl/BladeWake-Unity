@@ -225,7 +225,7 @@ MonoBehaviour:
   maxHealth: 2
   currentHealth: 0
   hurtSound: {fileID: 8300000, guid: 9d27294e97e192a42ac59e15754fa8e2, type: 3}
-  speed: 3.8
+  speed: 3.4
   distance: 1
   detectionRadius: 3
   separationWeight: 1.5

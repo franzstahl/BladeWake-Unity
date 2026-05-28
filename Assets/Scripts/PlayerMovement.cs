@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -21,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_playerHealth.isDying) return; // The player cannot move while dying
-
         if (_playerAttack.isAttacking) // The player cannot move while attacking
         {
             _moveInput = Vector2.zero;
@@ -34,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         _moveInput = new Vector2(moveX, moveY).normalized;
-
 
 
         if (_moveInput != Vector2.zero) // Last movement direction for idle animations
@@ -58,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         _playerRb.MovePosition(_playerRb.position + _moveInput * speed * Time.fixedDeltaTime);
     }
 
+   
                      
 
 }
