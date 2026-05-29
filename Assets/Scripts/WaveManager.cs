@@ -39,6 +39,7 @@ public class WaveManager : MonoBehaviour
    
     private void Update()
     {
+        if (_currentWave >= waves.Length) return;
         _spawnTimer += Time.deltaTime; // Increment spawn timer
 
         if (_enemiesAlive < waves[_currentWave].maxSimultaneous && _currentEnemiesSpawned < waves[_currentWave].totalEnemies && _spawnTimer >= waves[_currentWave].spawnInterval)
@@ -77,6 +78,10 @@ public class WaveManager : MonoBehaviour
             if (_currentWave >= waves.Length) // Boss wave
             {
                 waveText.text = $"Wave {_currentWave + 1}";
+
+                int randomIndex = Random.Range(0, spawnPoints.Length);
+                boss.transform.position = spawnPoints[randomIndex].position;
+
                 boss.SetActive(true);
 
             }
