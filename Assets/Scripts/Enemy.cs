@@ -16,6 +16,8 @@ public class Enemy : Health
     [SerializeField] private AudioClip _attackSound;
     [SerializeField] private float damageRange = 1.0f;
 
+    [SerializeField] private bool isBoss;
+
     private float _lastAttackTime = 0f;
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -127,7 +129,15 @@ public class Enemy : Health
     protected override void Die()
     {
         base.Die();
-        WaveManager.instance.EnemyDied(); // Notify the wave manager that an enemy has died, to manage wave progression
+
+        if (isBoss) // If this enemy is a boss, notify the wave manager that the boss has died
+        {
+            WaveManager.instance.BossDied();
+        }
+        else
+        {
+            WaveManager.instance.EnemyDied(); // Notify the wave manager that an enemy has died, to manage wave progression
+        }
     }
 
 

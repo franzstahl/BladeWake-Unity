@@ -25,6 +25,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject enemy;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private TMP_Text waveText;
+    [SerializeField] private GameObject boss;
 
     [SerializeField] private WaveData[] waves;
 
@@ -69,13 +70,15 @@ public class WaveManager : MonoBehaviour
     {
         _enemiesAlive--;
 
-        if (_enemiesAlive == 0 && _currentEnemiesSpawned >= waves[_currentWave].totalEnemies)
+        if (_enemiesAlive == 0 && _currentEnemiesSpawned >= waves[_currentWave].totalEnemies) // Check if all enemies for the current wave have been spawned and are dead
         {
             _currentWave++;
 
-            if (_currentWave >= waves.Length)
+            if (_currentWave >= waves.Length) // Boss wave
             {
-                //boss
+                waveText.text = $"Wave {_currentWave + 1}";
+                boss.SetActive(true);
+
             }
             else
             {
@@ -84,5 +87,10 @@ public class WaveManager : MonoBehaviour
 
             
         }
+    }
+
+    public void BossDied()
+    {
+        //
     }
 }

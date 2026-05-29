@@ -7,6 +7,7 @@ public class PlayerHealth : Health
     [SerializeField] private HealthUI healthUI;
 
     public bool isDying;
+    private bool isInvulnerable; // Flag to prevent taking damage during invulnerability frames
     void Start()
     {
         base.Start();
@@ -15,8 +16,11 @@ public class PlayerHealth : Health
     public override void TakeDamage(int damageAmount) // Update health and health UI when taking damage
     {
         if (isDying) return; // Prevent taking damage if already dying
+        if (isInvulnerable) return; // Prevent taking damage during invulnerability frames
         base.TakeDamage(damageAmount);
-        healthUI.DisplayHealth(maxHealth, currentHealth); 
+        healthUI.DisplayHealth(maxHealth, currentHealth);
+
+        StartCoroutine(InvulnerabilityFrames());
     }
     protected override void Die()
     {
@@ -45,5 +49,12 @@ public class PlayerHealth : Health
             yield return null;
         }
         SceneManager.LoadScene("Lose");
+    }
+
+    private IEnumerator InvulnerabilityFrames() // Coroutine to handle invulnerability frames after taking damage
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(1f);
+        isInvulnerable = false;
     }
 }

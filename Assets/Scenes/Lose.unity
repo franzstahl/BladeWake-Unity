@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 527930044}
   - component: {fileID: 527930043}
   m_Layer: 5
-  m_Name: Font (1)
+  m_Name: PressAnyKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 686018140}
   - component: {fileID: 686018139}
   m_Layer: 5
-  m_Name: Font
+  m_Name: YouDied
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

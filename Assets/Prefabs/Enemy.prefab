@@ -225,7 +225,7 @@ MonoBehaviour:
   maxHealth: 2
   currentHealth: 0
   hurtSound: {fileID: 8300000, guid: 9d27294e97e192a42ac59e15754fa8e2, type: 3}
-  speed: 3.4
+  speed: 3.3
   distance: 1
   detectionRadius: 3
   separationWeight: 1.5
@@ -241,6 +241,7 @@ MonoBehaviour:
   attackCooldown: 1.7
   _attackSound: {fileID: 8300000, guid: dbe6eb872c1a3f140b5fa53c86eafc18, type: 3}
   damageRange: 1
+  isBoss: 0
 --- !u!50 &8001679451983986264
 Rigidbody2D:
   serializedVersion: 5
