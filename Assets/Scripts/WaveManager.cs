@@ -10,7 +10,7 @@ public struct WaveData // Struct to hold data for each wave, can be edited in th
 }
 public class WaveManager : MonoBehaviour
 {
-    public static WaveManager instance;
+    public static WaveManager instance; 
 
     private void Awake()
     {
@@ -29,33 +29,44 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] private WaveData[] waves;
 
+    [SerializeField] private AudioClip endWave;
+
+    private AudioSource _audioSource;
+
     
    private void Start()
     {
         _currentWave = 0;
+        _audioSource = GetComponent<AudioSource>();
         StartWave();
     }
 
    
     private void Update()
     {
-        if (_currentWave >= waves.Length) return;
+        if (_currentWave >= waves.Length) return; // If we've reached the boss wave, stop spawning regular enemies
         _spawnTimer += Time.deltaTime; // Increment spawn timer
 
-        if (_enemiesAlive < waves[_currentWave].maxSimultaneous && _currentEnemiesSpawned < waves[_currentWave].totalEnemies && _spawnTimer >= waves[_currentWave].spawnInterval)
+        if (_enemiesAlive < waves[_currentWave].maxSimultaneous && _currentEnemiesSpawned < waves[_currentWave].totalEnemies && _spawnTimer >= waves[_currentWave].spawnInterval) // Check if we can spawn a new enemy based on alive count, total count for the wave, and spawn interval
         {
             SpawnEnemy();
             _spawnTimer = 0;
         }
     }
 
-    private void StartWave() // Method to start a new wave, resets counters and timers
+    private void StartWave() // Method when a new wave starts resets counters and timers
     {
         _spawnTimer = 0;
         _enemiesAlive = 0;
         _currentEnemiesSpawned = 0;
 
-        waveText.text = $"Wave {_currentWave + 1}";
+        waveText.text = $"Wave {_currentWave + 1}"; // Update wave text to show current wave number
+
+        if (_currentWave > 0)
+        {
+            _audioSource.PlayOneShot(endWave); // Play end wave sound when starting a new wave, but not on the first wave
+        }
+
     }
 
     private void SpawnEnemy() // Method to spawn an enemy at a random spawn point, increments counters for spawned and alive enemies
@@ -82,7 +93,7 @@ public class WaveManager : MonoBehaviour
                 int randomIndex = Random.Range(0, spawnPoints.Length);
                 boss.transform.position = spawnPoints[randomIndex].position;
 
-                boss.SetActive(true);
+                boss.SetActive(true); // Activate the boss when the boss wave starts
 
             }
             else

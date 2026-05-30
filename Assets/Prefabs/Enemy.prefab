@@ -238,7 +238,7 @@ MonoBehaviour:
     m_Bits: 256
   delay: 0.2
   attackRange: 2.5
-  attackCooldown: 1.7
+  attackCooldown: 1.4
   _attackSound: {fileID: 8300000, guid: dbe6eb872c1a3f140b5fa53c86eafc18, type: 3}
   damageRange: 1
   isBoss: 0

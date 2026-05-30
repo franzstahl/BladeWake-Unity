@@ -17,6 +17,7 @@ public class Enemy : Health
     [SerializeField] private float damageRange = 1.0f;
 
     [SerializeField] private bool isBoss;
+    [SerializeField] private GameObject key;
 
     private float _lastAttackTime = 0f;
     private Rigidbody2D _rb;
@@ -132,6 +133,8 @@ public class Enemy : Health
 
         if (isBoss) // If this enemy is a boss, notify the wave manager that the boss has died
         {
+            key.transform.position = transform.position;
+            key.SetActive(true); // Activate the key when the boss dies
             WaveManager.instance.BossDied();
         }
         else
