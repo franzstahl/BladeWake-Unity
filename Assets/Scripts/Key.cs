@@ -13,7 +13,7 @@ public class Key : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             AudioSource.PlayClipAtPoint(keySound, transform.position); // Play the key collection sound at the position of the key
-            hasKey = true;
+            hasKey = true; 
             Destroy(gameObject);
         }
     }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Door : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Door : MonoBehaviour
     [SerializeField] private TMP_Text message;
 
     private AudioSource _audioSource;
+    private bool _playerNearby;
+    private bool _isOpen;
    
     void Start()
     {
@@ -16,6 +19,32 @@ public class Door : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E) && _playerNearby && Key.hasKey && !_isOpen)
+        {
+            _audioSource.PlayOneShot(doorOpenSound);
+            doorAnimator.SetTrigger("Open");
+            _isOpen = true;
+            GetComponent<Collider2D>().enabled = false; // Disable the collider to allow passage
+             
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && !_isOpen)
+        {
+            message.gameObject.SetActive(true);
+            _playerNearby = true;
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            message.gameObject.SetActive(false);
+            _playerNearby = false;
+        }
     }
 }

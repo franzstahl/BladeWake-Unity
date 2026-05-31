@@ -129,8 +129,6 @@ public class Enemy : Health
 
     protected override void Die()
     {
-        base.Die();
-
         if (isBoss) // If this enemy is a boss, notify the wave manager that the boss has died
         {
             key.transform.position = transform.position;
@@ -141,6 +139,9 @@ public class Enemy : Health
         {
             WaveManager.instance.EnemyDied(); // Notify the wave manager that an enemy has died, to manage wave progression
         }
+
+        base.Die();
+
     }
 
 

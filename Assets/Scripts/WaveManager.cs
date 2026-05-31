@@ -107,6 +107,6 @@ public class WaveManager : MonoBehaviour
 
     public void BossDied()
     {
-        //
+        
     }
 }
