@@ -9,7 +9,7 @@ public class Door : MonoBehaviour
     [SerializeField] private TMP_Text message;
 
     private AudioSource _audioSource;
-    private bool _playerNearby;
+    private bool _playerNearby; 
     private bool _isOpen;
    
     void Start()
@@ -19,7 +19,7 @@ public class Door : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && _playerNearby && Key.hasKey && !_isOpen)
+        if (Input.GetKeyDown(KeyCode.E) && _playerNearby && Key.hasKey && !_isOpen) // Check if the player is nearby, has the key, and the door is not already open
         {
             _audioSource.PlayOneShot(doorOpenSound);
             doorAnimator.SetTrigger("Open");
