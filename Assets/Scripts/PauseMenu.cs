@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
@@ -31,4 +31,11 @@ public class PauseMenu : MonoBehaviour
         _isPaused = false;
         _audioSource.PlayOneShot(pauseSound);
     }
+
+    public void BackMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
+    }
+        
 }

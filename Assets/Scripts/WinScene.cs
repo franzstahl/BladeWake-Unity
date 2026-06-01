@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinScene : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class WinScene : MonoBehaviour
         _audioSource.PlayOneShot(winSound);
     }
 
-    void Update()
+    private void Update()
     {
-        
+        if (Input.anyKeyDown)
+        {
+
+            SceneManager.LoadScene("Menu");
+        }
+
     }
 }

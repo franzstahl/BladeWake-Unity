@@ -32,6 +32,7 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] private AudioClip endWave;
     [SerializeField] private AudioClip bossLaugh;
+    [SerializeField] private GameObject bossHealthUI;
 
     private AudioSource _audioSource;
 
@@ -97,6 +98,7 @@ public class WaveManager : MonoBehaviour
 
                 boss.SetActive(true); // Activate the boss when the boss wave starts
                 boss.GetComponent<AudioSource>().PlayOneShot(bossLaugh); // Play boss laugh sound when the boss spawns
+                bossHealthUI.SetActive(true); // Show the boss health UI when the boss spawns
             }
             else
             {

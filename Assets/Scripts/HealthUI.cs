@@ -15,8 +15,4 @@ public class HealthUI : MonoBehaviour
         healthImage.sprite = healthSprites[maxHealth - currentHealth];
     }
    
-    void Update()
-    {
-        
-    }
 }

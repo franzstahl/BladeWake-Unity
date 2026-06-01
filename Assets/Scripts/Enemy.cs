@@ -19,6 +19,7 @@ public class Enemy : Health
     [SerializeField] private bool isBoss;
     [SerializeField] private GameObject key;
     [SerializeField] private Transform keySpawnPosition;
+    [SerializeField] private BossHealthUI bossHealthUI;
 
     private float _lastAttackTime = 0f;
     private Rigidbody2D _rb;
@@ -134,6 +135,8 @@ public class Enemy : Health
         {
             key.transform.position = keySpawnPosition.position; // Move the key to the spawn position
             key.SetActive(true); // Activate the key when the boss dies
+            if (bossHealthUI != null) // Hide the boss health UI when the boss dies
+                bossHealthUI.gameObject.SetActive(false);
             WaveManager.instance.BossDied();
         }
         else
@@ -143,9 +146,16 @@ public class Enemy : Health
 
         base.Die();
 
+
+
     }
 
-
+    public override void TakeDamage(int damageAmount)
+    {
+        if (isBoss && bossHealthUI != null) // If this enemy is a boss, update the boss health UI to reflect the current health
+            bossHealthUI.DisplayHealth(maxHealth, currentHealth);
+        base.TakeDamage(damageAmount); // Update health and boss health UI when taking damage
+    }
 
 
 

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class LoseScene : MonoBehaviour
 {
     [SerializeField] private AudioClip loseSound;
@@ -11,5 +11,15 @@ public class LoseScene : MonoBehaviour
         _audioSource.PlayOneShot(loseSound);
     }
 
+    private void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+       
+            SceneManager.LoadScene("Menu");
+        }
+
+
+    }
 }
     
