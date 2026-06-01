@@ -33,6 +33,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private AudioClip endWave;
     [SerializeField] private AudioClip bossLaugh;
     [SerializeField] private GameObject bossHealthUI;
+    [SerializeField] private GameObject healthPickup;
 
     private AudioSource _audioSource;
 
@@ -95,7 +96,7 @@ public class WaveManager : MonoBehaviour
 
                 int randomIndex = Random.Range(0, spawnPoints.Length);
                 boss.transform.position = spawnPoints[randomIndex].position;
-
+                healthPickup.SetActive(true); // Activate the health pickup when the boss wave starts
                 boss.SetActive(true); // Activate the boss when the boss wave starts
                 boss.GetComponent<AudioSource>().PlayOneShot(bossLaugh); // Play boss laugh sound when the boss spawns
                 bossHealthUI.SetActive(true); // Show the boss health UI when the boss spawns

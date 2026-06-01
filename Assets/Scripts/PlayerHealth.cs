@@ -57,4 +57,14 @@ public class PlayerHealth : Health
         yield return new WaitForSeconds(1f);
         isInvulnerable = false;
     }
+
+    public void Heal (int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+        healthUI.DisplayHealth(maxHealth, currentHealth);
+
+    
+    }
 }
