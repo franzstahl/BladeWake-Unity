@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0f) return; // Do not process input if the game is paused
         if (_playerAttack.isAttacking) // The player cannot move while attacking
         {
             _moveInput = Vector2.zero;

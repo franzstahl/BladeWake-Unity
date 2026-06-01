@@ -21,7 +21,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-         if (Input.GetMouseButtonDown(0) && CanAttack()) // Uses left mouse button to attack
+        if (Time.timeScale == 0f) return; // Do not process input if the game is paused
+        if (Input.GetMouseButtonDown(0) && CanAttack()) // Uses left mouse button to attack
         {
             Attack();
 
