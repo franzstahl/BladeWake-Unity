@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 [System.Serializable]
 public struct WaveData // Struct to hold data for each wave, can be edited in the inspector
@@ -30,6 +31,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private WaveData[] waves;
 
     [SerializeField] private AudioClip endWave;
+    [SerializeField] private AudioClip bossLaugh;
 
     private AudioSource _audioSource;
 
@@ -94,7 +96,7 @@ public class WaveManager : MonoBehaviour
                 boss.transform.position = spawnPoints[randomIndex].position;
 
                 boss.SetActive(true); // Activate the boss when the boss wave starts
-
+                boss.GetComponent<AudioSource>().PlayOneShot(bossLaugh); // Play boss laugh sound when the boss spawns
             }
             else
             {
