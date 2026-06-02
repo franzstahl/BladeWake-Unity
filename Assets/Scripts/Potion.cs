@@ -3,7 +3,7 @@ using UnityEngine;
 public class Potion : MonoBehaviour
 {
     [SerializeField] private AudioClip healthSound;
-    private int _healAmount = 6; // Amount of health the potion restores
+    [SerializeField] private int healAmount = 6; // Amount of health the potion restores
 
     private Vector3 _startPosition;
     private float _speed = 3f;
@@ -24,7 +24,7 @@ public class Potion : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(healthSound, transform.position); // Play the health potion sound effect
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>(); // Get the PlayerHealth component from the player
-            playerHealth.Heal(_healAmount); // Heal the player by the specified amount
+            playerHealth.Heal(healAmount); // Heal the player by the specified amount
             Destroy(gameObject);
         }
     }
