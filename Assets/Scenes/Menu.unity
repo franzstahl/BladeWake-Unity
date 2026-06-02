@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 1822579141}
   - component: {fileID: 1822579140}
   m_Layer: 5
-  m_Name: Escape
+  m_Name: TAB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6565566349041833623, guid: d740fe7e5141a6f40a417665fb3d3e3f, type: 3}
+  m_Sprite: {fileID: -4722540817334904557, guid: d8fe446ddd69d1944bead162dfc4bfde, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
