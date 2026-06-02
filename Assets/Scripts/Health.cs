@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
         currentHealth -= damageAmount;
         _audioSource.PlayOneShot(hurtSound);
       
-        if (currentHealth <= 0)
+        if (currentHealth <= 0) // If health drops to 0 or below, trigger death
         {
             Die();
         }

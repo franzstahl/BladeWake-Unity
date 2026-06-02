@@ -11,12 +11,12 @@ public class Potion : MonoBehaviour
 
     private void Start()
     {
-        _startPosition = transform.position;
+        _startPosition = transform.position; // Store the initial position of the potion to use as a reference for the floating animation
     }
 
     private void Update()
     {
-        transform.position = _startPosition + Vector3.up * Mathf.Sin(Time.time * _speed) * _amplitude;
+        transform.position = _startPosition + Vector3.up * Mathf.Sin(Time.time * _speed) * _amplitude; // Create a floating effect by modifying the potion's position using a sine wave based on time, speed, and amplitude
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

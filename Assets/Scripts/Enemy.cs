@@ -52,8 +52,8 @@ public class Enemy : Health
         {
             if (neighbour.gameObject != gameObject)
             {
-                Vector2 pushDirection = (Vector2)transform.position - (Vector2)neighbour.transform.position;
-                float dist = pushDirection.magnitude;
+                Vector2 pushDirection = (Vector2)transform.position - (Vector2)neighbour.transform.position; // Calculate direction away from neighbour
+                float dist = pushDirection.magnitude; // Calculate distance to neighbour
 
                 if (dist > 0)
                 {
@@ -63,26 +63,26 @@ public class Enemy : Health
             }
         }
 
-        if (neighbours.Length > 1) 
+        if (neighbours.Length > 1) // Average the separation force if there are multiple neighbours to prevent excessive pushing
         {
             separationForce /= (neighbours.Length - 1); 
         }
 
-        float distanceToPlayer = Vector2.Distance(_rb.position, _playerTransform.position); 
+        float distanceToPlayer = Vector2.Distance(_rb.position, _playerTransform.position); // Calculate distance to player to determine if we should move towards them or stop
 
         if (distanceToPlayer >= distance)
         {
-            Vector2 moveDirection = ((Vector2)_playerTransform.position - _rb.position).normalized;
-            Vector2 targetDirection = (moveDirection + (separationForce * separationWeight)).normalized;
+            Vector2 moveDirection = ((Vector2)_playerTransform.position - _rb.position).normalized; // Calculate direction towards player
+            Vector2 targetDirection = (moveDirection + (separationForce * separationWeight)).normalized; // Combine move direction with separation force to get target direction, weighted by separation weight
 
             _currentDirection = Vector2.Lerp(_currentDirection, targetDirection, smoothing);
 
-            if (_currentDirection.magnitude > 0.1f)
+            if (_currentDirection.magnitude > 0.1f) // If the current direction is significant enough, update the last direction for animation purposes
             {
-                _lastDirection = _currentDirection;
+                _lastDirection = _currentDirection; 
             }
 
-            _rb.MovePosition(_rb.position + _currentDirection * speed * Time.fixedDeltaTime);
+            _rb.MovePosition(_rb.position + _currentDirection * speed * Time.fixedDeltaTime); 
 
             _animator.SetFloat("MoveX", _currentDirection.x);
             _animator.SetFloat("MoveY", _currentDirection.y);

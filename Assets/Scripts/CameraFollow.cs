@@ -34,7 +34,7 @@ public class CameraFollow : MonoBehaviour
     {
         float elapsed = 0f;
 
-        while (elapsed < duration)
+        while (elapsed < duration) // Continue shaking until the duration has elapsed
         {
             elapsed += Time.deltaTime;
             Vector3 randomOffset = Random.insideUnitCircle * intensity;
@@ -42,7 +42,7 @@ public class CameraFollow : MonoBehaviour
             yield return null;
         }
 
-        offSet = Vector3.zero;
+        offSet = Vector3.zero; // Reset offset after shaking is done
 
     }
  

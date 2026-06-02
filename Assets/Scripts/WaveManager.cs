@@ -68,7 +68,7 @@ public class WaveManager : MonoBehaviour
 
         if (_currentWave > 0)
         {
-            _audioSource.PlayOneShot(endWave); // Play end wave sound when starting a new wave, but not on the first wave
+            _audioSource.PlayOneShot(endWave); 
         }
 
     }
@@ -78,8 +78,8 @@ public class WaveManager : MonoBehaviour
         _currentEnemiesSpawned++;
         _enemiesAlive++;
 
-        int randomNext = Random.Range(0, spawnPoints.Length);
-        Instantiate(enemy, spawnPoints[randomNext].position, Quaternion.identity);
+        int randomNext = Random.Range(0, spawnPoints.Length); // Get a random index for the spawn points array to select a random spawn location for the enemy
+        Instantiate(enemy, spawnPoints[randomNext].position, Quaternion.identity); // Spawn the enemy at the selected spawn point with no rotation
     }
 
     public void EnemyDied() // Method to be called when an enemy dies, decrements alive counter and checks if the wave is complete to start the next one
