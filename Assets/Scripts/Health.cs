@@ -6,8 +6,8 @@ public class Health : MonoBehaviour
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int currentHealth;
     [SerializeField] private AudioClip hurtSound;
-    
 
+    private bool _isDying = false;
     protected SpriteRenderer _spriteRenderer;
     private Color _originalColor;
     protected AudioSource _audioSource;
@@ -22,6 +22,7 @@ public class Health : MonoBehaviour
 
     public virtual void TakeDamage(int damageAmount) // Handle taking damage 
     {
+        if (_isDying) return; // If already dying, ignore further damage
         currentHealth -= damageAmount;
         _audioSource.PlayOneShot(hurtSound);
       
@@ -35,29 +36,30 @@ public class Health : MonoBehaviour
 
    protected virtual void Die() // Handle death, can be overridden by player and enemy for different behaviour
     {
-        StopAllCoroutines();
-        _spriteRenderer.color = _originalColor;
+        _isDying = true;
+        StopAllCoroutines(); 
+        _spriteRenderer.color = _originalColor; 
         StartCoroutine(EnemyFadeAndDie());
     }
 
     private IEnumerator EnemyFadeAndDie() // Fade out the sprite and its children before destroying the object
     {
         float duration = 0.8f;
-        float elapsed = 0f;
+        float elapsed = 0f; 
         Color color = _spriteRenderer.color;
         SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(1f, 0f, elapsed / duration);
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / duration); 
 
             foreach (SpriteRenderer sr in sprites)
             {
                 sr.color = new Color(color.r, color.g, color.b, alpha);
             }
            
-            yield return null;
+            yield return null; 
         }
         Destroy(gameObject);
     }

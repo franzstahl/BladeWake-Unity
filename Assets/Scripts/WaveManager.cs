@@ -68,7 +68,7 @@ public class WaveManager : MonoBehaviour
 
         if (_currentWave > 0)
         {
-            _audioSource.PlayOneShot(endWave); 
+            _audioSource.PlayOneShot(endWave);
         }
 
     }

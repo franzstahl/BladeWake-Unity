@@ -3,7 +3,7 @@ using UnityEngine;
 public class Potion : MonoBehaviour
 {
     [SerializeField] private AudioClip healthSound;
-    [SerializeField] private int healAmount = 6; // Amount of health the potion restores
+    [SerializeField] private int healAmount = 8; // Amount of health the potion restores
 
     private Vector3 _startPosition;
     private float _speed = 3f;
